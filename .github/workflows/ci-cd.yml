@@ -19,11 +19,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: 🏗️ Compilar aplicación
-        run: mvn clean package -DskipTests
+      - name: 📂 Listar archivos después de checkout (opcional para depuración)
+        run: ls -R
 
-      - name: ✅ Ejecutar pruebas
-        run: mvn test
+      - name: 📦 Dar permisos de ejecución al wrapper de Gradle
+        run: chmod +x gradlew  # Asegurar que el wrapper de Gradle puede ejecutarse
+
+      - name: 🏗️ Compilar aplicación con Gradle
+        run: ./gradlew build -x test  # Construir sin ejecutar pruebas
+
+      - name: ✅ Ejecutar pruebas con Gradle
+        run: ./gradlew test
 
       - name: 🔍 Obtener la última versión en Docker Hub
         run: |
