@@ -18,7 +18,7 @@ public class DatoController {
     public List<Dato> obtenerTodos() {
         return datoService.obtenerTodos();
     }
-
+//Prueba para ver si el pipeline funciona
     @PostMapping
     public Dato guardar(@RequestBody Dato dato) {
         return datoService.guardar(dato);
