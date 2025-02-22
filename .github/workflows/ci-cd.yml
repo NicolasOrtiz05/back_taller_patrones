@@ -65,8 +65,8 @@ jobs:
 
       - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
         run: |
-          # Clonar el repositorio usando SSH
-          git clone git@github.com:NicolasOrtiz05/manifiestos_tallerp_1.git
+          # Clonar el repositorio de configuración de ArgoCD
+          git clone https://github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
           cd manifiestos_tallerp_1
           
           # Actualizar el newTag en kustomization.yaml con la nueva versión
@@ -79,5 +79,5 @@ jobs:
           git add kustomization.yaml
           git commit -m "🚀 Actualizando imagen a versión ${{ env.NUEVA_VERSION }}"
           
-          # Push usando SSH con la Deploy Key
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key" git push origin main
+          # Push usando el token de acceso personal (PAT)
+          git push https://x-access-token:${{ secrets.PAT_GITHUB }}@github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
