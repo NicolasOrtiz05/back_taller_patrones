@@ -56,7 +56,7 @@ jobs:
           docker push nicolasortiz05/back-taller:latest
 
 
-            - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
+      - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
         run: |
           # Clonar el repositorio de configuración de ArgoCD
           git clone https://github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
