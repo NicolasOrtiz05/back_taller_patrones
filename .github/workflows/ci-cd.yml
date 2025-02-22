@@ -54,3 +54,20 @@ jobs:
         run: |
           docker push nicolasortiz05/back-taller:${{ env.NUEVA_VERSION }}
           docker push nicolasortiz05/back-taller:latest
+
+
+      - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
+        run: |
+          # Clonar el repositorio de configuración de ArgoCD
+          git clone https://github.com/NicolasOrtiz05/back_taller_argocd.git
+          cd back_taller_argocd
+          
+          # Actualizar el newTag en kustomization.yaml con la nueva versión
+          sed -i "s/newTag: .*/newTag: \"${{ env.NUEVA_VERSION }}\"/" kustomization.yaml
+          
+          # Configurar Git para commit
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          
+          git add kustomization.yaml
+          git commit -m "🚀 Actualizando imagen a versión ${{ env.NUEVA_VERSION }}"
