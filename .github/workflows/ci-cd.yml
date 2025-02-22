@@ -55,14 +55,6 @@ jobs:
           docker push nicolasortiz05/back-taller:${{ env.NUEVA_VERSION }}
           docker push nicolasortiz05/back-taller:latest
 
-
-      - name: 🔑 Configurar SSH para acceder a `manifiestos_tallerp_1`
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
         run: |
           # Clonar el repositorio de configuración de ArgoCD
