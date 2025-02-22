@@ -78,6 +78,9 @@ jobs:
           
           git add kustomization.yaml
           git commit -m "🚀 Actualizando imagen a versión ${{ env.NUEVA_VERSION }}"
+
+          # Configurar la URL con el token correctamente
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_GITHUB }}@github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
           
-          # Push usando el token de acceso personal (PAT)
-          git push https://x-access-token:${{ secrets.PAT_GITHUB }}@github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
+          # Hacer push de los cambios
+          git push origin main
