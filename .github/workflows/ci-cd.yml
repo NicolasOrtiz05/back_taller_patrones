@@ -59,7 +59,7 @@ jobs:
       - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
         run: |
           # Clonar el repositorio de configuración de ArgoCD
-          git clone https://github.com/NicolasOrtiz05/back_taller_argocd.git
+          git clone https://github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
           cd back_taller_argocd
           
           # Actualizar el newTag en kustomization.yaml con la nueva versión
