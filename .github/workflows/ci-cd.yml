@@ -56,11 +56,18 @@ jobs:
           docker push nicolasortiz05/back-taller:latest
 
 
+      - name: 🔑 Configurar SSH para acceder a `manifiestos_tallerp_1`
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: 🔄 Actualizar kustomization.yaml en el repositorio de configuración
         run: |
-          # Clonar el repositorio de configuración de ArgoCD
-          git clone https://github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
-          cd manifiestos_tallerp_1  # ✅ Entrar al directorio correcto
+          # Clonar el repositorio usando SSH
+          git clone git@github.com:NicolasOrtiz05/manifiestos_tallerp_1.git
+          cd manifiestos_tallerp_1
           
           # Actualizar el newTag en kustomization.yaml con la nueva versión
           sed -i "s/newTag: .*/newTag: \"${{ env.NUEVA_VERSION }}\"/" kustomization.yaml
@@ -71,4 +78,6 @@ jobs:
           
           git add kustomization.yaml
           git commit -m "🚀 Actualizando imagen a versión ${{ env.NUEVA_VERSION }}"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/NicolasOrtiz05/manifiestos_tallerp_1.git
+          
+          # Push usando SSH con la Deploy Key
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key" git push origin main
