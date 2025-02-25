@@ -7,6 +7,7 @@ import java.util.List;
 @CrossOrigin(origins = "*") // Permitir peticiones desde cualquier frontend
 @RestController
 @RequestMapping("/api/datos")
+// prueba para el video, modificación.
 public class DatoController {
     private final DatoService datoService;
 
@@ -18,7 +19,7 @@ public class DatoController {
     public List<Dato> obtenerTodos() {
         return datoService.obtenerTodos();
     }
-//Prueba para ver si el pipeline funciona
+
     @PostMapping
     public Dato guardar(@RequestBody Dato dato) {
         return datoService.guardar(dato);
