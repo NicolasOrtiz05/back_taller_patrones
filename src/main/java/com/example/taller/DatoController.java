@@ -7,7 +7,7 @@ import java.util.List;
 @CrossOrigin(origins = "*") // Permitir peticiones desde cualquier frontend
 @RestController
 @RequestMapping("/api/datos")
-// prueba para el video, modificación2.
+// prueba para el video, modificación3..
 public class DatoController {
     private final DatoService datoService;
 
