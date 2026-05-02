@@ -1,7 +1,16 @@
-# Imagen base de Java
-FROM openjdk:17-jdk-slim
+FROM gradle:9.4.0-jdk21 AS builder
 
-# Copiar el JAR y ejecutarlo
 WORKDIR /app
-COPY build/libs/taller-0.0.1-SNAPSHOT.jar backend.jar
-ENTRYPOINT ["java", "-jar", "backend.jar"]
+COPY . .
+
+RUN gradle clean build -x test
+
+FROM eclipse-temurin:21-jre-jammy
+
+WORKDIR /app
+
+COPY --from=builder /app/build/libs/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
